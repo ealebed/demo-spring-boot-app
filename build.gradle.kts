@@ -36,7 +36,7 @@ jib {
         image = "openjdk:17.0-jdk-oracle"
     }
     to {
-        image = "us-east1-docker.pkg.dev/ylebi-rnd/docker/${project.name}:" + imageVersion
+        image = "us-central1-docker.pkg.dev/ylebi-rnd/docker/${project.name}:" + imageVersion
         // image = "ealebed/${project.name}:" + imageVersion
     }
     container {
