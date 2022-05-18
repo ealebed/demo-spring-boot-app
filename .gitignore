@@ -3,6 +3,9 @@
 build
 !gradle/wrapper/gradle-wrapper.jar
 
+### VSC
+.vscode
+
 ### IntelliJ IDEA ###
 .idea
 *.iws
@@ -10,3 +13,12 @@ build
 *.ipr
 **/out/
 **/*.run.xml
+
+### Credentials for terraform
+credentials.json
+.terraform*
+terraform.tfstate*
+keyoutput.json
+
+### Other
+.DS_Store

@@ -1,6 +1,15 @@
 TODO:
+# Enable APIs
+# artifactregistry.googleapis.com
+# container.googleapis.com
 - create Artifact Registry
+# Login 
+# cat keyoutput.json | docker login -u _json_key --password-stdin https://us-central1-docker.pkg.dev
 - create k8s cluster
+
+# Get the cluster credentials and configure kubectl:
+# gcloud container clusters get-credentials $(terraform output --raw cluster_name) --zone $(terraform output --raw cluster_location)
+
 - deploy Jenkins
 - deploy Spinnaker
 - grant access to Artifact Registry for Jenkins/Spinnaker
