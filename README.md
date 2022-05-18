@@ -1,0 +1,12 @@
+TODO:
+- create Artifact Registry
+- create k8s cluster
+- deploy Jenkins
+- deploy Spinnaker
+- grant access to Artifact Registry for Jenkins/Spinnaker
+- grant access to k8s cluster for Spinnaker
+- create Jenkinsfile for build image from master branch
+- create Jenkinsfile for validation PR (just build? checkstyle? SonarQube?)
+- generate k8s manifest for application
+- generate Spinnaker application
+- generate Spinnaker pipeline(s) for application (beta/promote-to-prod/prod)
