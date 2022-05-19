@@ -19,3 +19,10 @@ TODO:
 - generate k8s manifest for application
 - generate Spinnaker application
 - generate Spinnaker pipeline(s) for application (beta/promote-to-prod/prod)
+
+
+<!-- 
+gcloud container clusters create jenkins-cd \
+--num-nodes 2 \
+--machine-type n1-standard-2 \
+--scopes "https://www.googleapis.com/auth/projecthosting,cloud-platform" -->

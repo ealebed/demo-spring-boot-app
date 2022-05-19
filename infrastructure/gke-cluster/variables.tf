@@ -14,9 +14,3 @@ variable "gcp_zone" {
   description = "GCP zone name"
   default = "europe-west1-b"
 }
-
-variable "gcp_network_name" {
-  type = string
-  description = "GCP network name"
-  default = "tf-gke-k8s"
-}
