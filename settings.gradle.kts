@@ -4,4 +4,7 @@ pluginManagement {
     }
 }
 
-rootProject.name = "undertow-demo-app"
+rootProject.name = "demo-apps"
+
+include("apps:undertow-app")
+include("apps:spring-boot-app")

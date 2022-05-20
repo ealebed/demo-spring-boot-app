@@ -1,6 +1,6 @@
-package com.ealebed.demo.app;
+package com.ealebed.undertow.demo.app;
 
-import com.ealebed.demo.app.utils.FileHealthManager;
+import com.ealebed.undertow.demo.app.utils.FileHealthManager;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import io.undertow.Undertow;

@@ -1,4 +1,4 @@
-package com.ealebed.demo.app.utils;
+package com.ealebed.undertow.demo.app.utils;
 
 public interface HealthManager {
     void resetAll();

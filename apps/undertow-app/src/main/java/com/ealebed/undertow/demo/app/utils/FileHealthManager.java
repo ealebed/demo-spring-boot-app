@@ -1,4 +1,4 @@
-package com.ealebed.demo.app.utils;
+package com.ealebed.undertow.demo.app.utils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
