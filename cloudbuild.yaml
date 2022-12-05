@@ -14,12 +14,14 @@ steps:
   - -c
   - |
     _version=$(cat /workspace/version.txt)
+    echo $${_version}
     set -e
+    printenv
     ./gradlew \
       clean
     ./gradlew \
       spring-boot-app:jib
-  env: ['GRADLE_USER_HOME=/workspace/.gradle', 'PROJECT_VERSION=${_version}', 'REGION=${_REGION}', 'PROJECT_ID=${_PROJECT_ID}']
+  env: ['GRADLE_USER_HOME=/workspace/.gradle', 'PROJECT_VERSION=$(cat /workspace/version.txt)', 'REGION=${_REGION}', 'PROJECT_ID=${_PROJECT_ID}']
 
 # images: ["${_REGION}-docker.pkg.dev/${_PROJECT_ID}/docker/spring-boot-app"]
 options:
