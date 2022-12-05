@@ -1,27 +1,17 @@
 steps:
-- name: ubuntu
-  id: 'Generate version'
-  entrypoint: bash
-  args: 
-  - -c
-  - |
-    _version=$(date -u '+%y-%m-%d--%H-%M')
-    echo $${_version} > /workspace/version.txt
-
 - name: gradle:7.5.1-focal
   entrypoint: bash
   args:
   - -c
   - |
-    _version=$(cat /workspace/version.txt)
     set -e
-    export VER=$${_version}
+    export PROJECT_VERSION=$(date -u '+%y-%m-%d--%H-%M')
     printenv
     ./gradlew \
       clean
     ./gradlew \
       spring-boot-app:jib
-  env: ["GRADLE_USER_HOME=/workspace/.gradle", "PROJECT_VERSION=$${_version}", "REGION=${_REGION}", "PROJECT_ID=${_PROJECT_ID}"]
+  env: ['GRADLE_USER_HOME=/workspace/.gradle', 'REGION=${_REGION}', 'PROJECT_ID=${_PROJECT_ID}']
 
 # images: ["${_REGION}-docker.pkg.dev/${_PROJECT_ID}/docker/spring-boot-app"]
 options:
