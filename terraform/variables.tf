@@ -35,6 +35,7 @@ variable "sa_cloud_build_roles" {
     "roles/artifactregistry.writer",
     "roles/container.developer",
     "roles/clouddeploy.developer",
+    "roles/clouddeploy.releaser",
     "roles/iam.serviceAccountUser"
   ]
 }
