@@ -9,7 +9,7 @@ resource "google_container_cluster" "default" {
     machine_type = "n1-standard-2"
 
     # Google recommends custom service accounts that have cloud-platform scope and permissions granted via IAM Roles.
-    service_account = "sa-artifact-registry@${var.gcp_project}.iam.gserviceaccount.com"
+    service_account = "sa-gke@${var.gcp_project}.iam.gserviceaccount.com"
     oauth_scopes = [
       "https://www.googleapis.com/auth/cloud-platform"
     ]

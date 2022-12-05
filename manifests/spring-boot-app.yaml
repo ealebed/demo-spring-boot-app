@@ -29,7 +29,7 @@ spec:
       terminationGracePeriodSeconds: 20
       containers:
       - name: spring-boot-app
-        image: us-central1-docker.pkg.dev/ylebi-rnd/docker/spring-boot-app:ylebi_DEV_22.11.25-11.52
+        image: spring-boot-app-image
         ports:
         - name: http
           containerPort: 8080

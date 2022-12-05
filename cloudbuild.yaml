@@ -1,11 +1,22 @@
 steps:
+- name: ubuntu
+  id: 'Generate version'
+  entrypoint: bash
+  args: 
+  - -c
+  - |
+    _version=$(date -u '+%y-%m-%d--%H-%M')
+    echo $${_version} > /workspace/version.txt
+
 - name: gradle:7.5.1-focal
+  waitFor: ['Generate version']
+  id: 'Buid container image'
   entrypoint: bash
   args:
   - -c
   - |
     set -e
-    export PROJECT_VERSION=$(date -u '+%y-%m-%d--%H-%M')
+    export PROJECT_VERSION=$(cat /workspace/version.txt)
     printenv
     ./gradlew \
       clean
@@ -13,6 +24,19 @@ steps:
       spring-boot-app:jib
   env: ['GRADLE_USER_HOME=/workspace/.gradle', 'REGION=${_REGION}', 'PROJECT_ID=${_PROJECT_ID}']
 
-# images: ["${_REGION}-docker.pkg.dev/${_PROJECT_ID}/docker/spring-boot-app"]
+- name: gcr.io/cloud-builders/gcloud
+  waitFor: ['Buid container image']
+  id: Create a cloud deploy release and deploy to the first target
+  entrypoint: /bin/bash
+  args:
+  - -c
+  - |
+    gcloud deploy releases create r-$(cat /workspace/version.txt) \
+      --project=${_PROJECT_ID} \
+      --region=${_REGION} \
+      --delivery-pipeline=demo-spring-boot-app-cd \
+      --images=spring-boot-app-image=${_REGION}-docker.pkg.dev/${_PROJECT_ID}/docker/spring-boot-app:$(cat /workspace/version.txt) \
+      --from-k8s-manifest=manifests/spring-boot-app.yaml
+
 options:
   logging: CLOUD_LOGGING_ONLY

@@ -37,3 +37,14 @@ variable "sa_cloud_build_roles" {
     "roles/iam.serviceAccountUser"
   ]
 }
+
+variable "sa_gke_roles" {
+  type        = set(string)
+  description = "List Roles to assign to GKE service account"
+  default = [
+    "roles/artifactregistry.reader",
+    "roles/container.developer",
+    "roles/clouddeploy.jobRunner",
+    "roles/iam.serviceAccountUser"
+  ]
+}

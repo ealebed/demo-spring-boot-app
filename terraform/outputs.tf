@@ -1,5 +1,5 @@
 output "artifact-registry-sa" {
-  value = google_service_account.sa_artifact_registry.email
+  value = google_service_account.sa_gke.email
 }
 
 output "cluster_name" {

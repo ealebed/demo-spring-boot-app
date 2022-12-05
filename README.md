@@ -31,6 +31,7 @@ gcloud services enable \
   cloudbuild.googleapis.com \
   artifactregistry.googleapis.com \
   container.googleapis.com \
+  clouddeploy.googleapis.com \
   storage-api.googleapis.com \
   storage.googleapis.com \
   iam.googleapis.com \
