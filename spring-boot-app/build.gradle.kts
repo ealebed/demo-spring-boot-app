@@ -14,7 +14,10 @@ java {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-web:2.6.7")
+    implementation("org.springframework.boot:spring-boot-starter-web:2.7.5")
+}
+repositories {
+    mavenCentral()
 }
 
 jib {
@@ -25,14 +28,14 @@ jib {
         image = "openjdk:17.0-jdk-oracle"
     }
     to {
-        // IMPORTANT: Set the environment variable PROJECT_ID to your own Google Cloud Platform project
-        image = "us-central1-docker.pkg.dev/${System.getenv("PROJECT_ID")}/docker/${project.name}:" + imageVersion
+        // IMPORTANT: Set the environment variables REGION and PROJECT_ID to your own Google Cloud Platform project
+        image = "${System.getenv("REGION")}-docker.pkg.dev/${System.getenv("PROJECT_ID")}/docker/${project.name}:" + imageVersion
     }
     container {
         workingDirectory = "/app"
         environment = mapOf(
-                "JAVA_MAIN_CLASS" to mainClassName,
-                "PROJECT_VERSION" to imageVersion
+            "JAVA_MAIN_CLASS" to mainClassName,
+            "PROJECT_VERSION" to imageVersion
         ) as MutableMap<String, String>?
         entrypoint = listOf(
             "sh",

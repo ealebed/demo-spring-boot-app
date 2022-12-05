@@ -1,10 +1,9 @@
 pluginManagement {
     plugins {
-        id("com.google.cloud.tools.jib") version "3.2.1"
+        id("com.google.cloud.tools.jib") version "3.3.1"
     }
 }
 
-rootProject.name = "demo-apps"
+rootProject.name = "demo-app"
 
-include("apps:undertow-app")
-include("apps:spring-boot-app")
+include("spring-boot-app")

@@ -1,16 +1,16 @@
 terraform {
-  required_version = ">= 0.13"
+  required_version = "~> 1.0"
   
   required_providers {
     google = {
       source = "hashicorp/google"
-      version = ">= 3.53, < 5.0"
+      version = "~> 4.0"
     }
   }
 }
 
 provider "google" {
-  credentials = file("../../credentials.json")
+  credentials = file("../credentials.json")
 
   project     = var.gcp_project
   region      = var.gcp_region

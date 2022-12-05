@@ -1,5 +1,6 @@
+# Configuration for a GKE cluster
 resource "google_container_cluster" "default" {
-  name               = "test-k8s-cluster"
+  name               = "demo-k8s-cluster"
   location           = var.gcp_zone
   initial_node_count = 3
 
@@ -8,7 +9,7 @@ resource "google_container_cluster" "default" {
     machine_type = "n1-standard-2"
 
     # Google recommends custom service accounts that have cloud-platform scope and permissions granted via IAM Roles.
-    service_account = "artifact-registry-sa@${var.gcp_project}.iam.gserviceaccount.com"
+    service_account = "sa-artifact-registry@${var.gcp_project}.iam.gserviceaccount.com"
     oauth_scopes = [
       "https://www.googleapis.com/auth/cloud-platform"
     ]

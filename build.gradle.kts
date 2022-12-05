@@ -7,10 +7,8 @@ allprojects {
 
 subprojects {
     apply(plugin = "java")
-
     beforeEvaluate {
         project.version = projectVersion()
-
         repositories {
             mavenCentral()
         }
