@@ -9,7 +9,6 @@ description = "Spring Boot demo application"
 java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(17))
-        vendor.set(JvmVendorSpec.ORACLE)
     }
 }
 
@@ -25,7 +24,7 @@ jib {
     val imageVersion = project.version
 
     from {
-        image = "openjdk:17.0-jdk-oracle"
+        image = "openjdk:17.0-jdk-slim-buster"
     }
     to {
         // IMPORTANT: Set the environment variables REGION and PROJECT_ID to your own Google Cloud Platform project
