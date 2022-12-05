@@ -1,31 +1,104 @@
-TODO:
-# Enable APIs
-# artifactregistry.googleapis.com
-# container.googleapis.com
-- create Artifact Registry
-# Login 
-# cat keyoutput.json | docker login -u _json_key --password-stdin https://us-central1-docker.pkg.dev
-- create k8s cluster
+# Prerequisites:
 
-# Get the cluster credentials and configure kubectl:
-# gcloud container clusters get-credentials $(terraform output --raw cluster_name) --zone $(terraform output --raw cluster_location)
+- You will need a [Google Cloud Platform](https://cloud.google.com/) project(s) and a Google Cloud Service Account with enough permissions to manage resources in related GCP project(s).
 
+## Getting started with Google Cloud Platform (optional)
 
-??? Grant the Source Repository Writer IAM role to the Cloud Build service account for the hello-cloudbuild-env repository.
+Install the [Google Cloud CLI](https://cloud.google.com/sdk/docs/install-sdk)
 
-```PROJECT_NUMBER="$(gcloud projects describe ${PROJECT_ID} \
-    --format='get(projectNumber)')"
-cat >/tmp/hello-cloudbuild-env-policy.yaml <<EOF
-bindings:
-- members:
-  - serviceAccount:${PROJECT_NUMBER}@cloudbuild.gserviceaccount.com
-  role: roles/source.writer
-EOF
-gcloud source repos set-iam-policy \
-    hello-cloudbuild-env /tmp/hello-cloudbuild-env-policy.yaml```
+### Create project (optional)
+```bash
+PROJECT_ID=new-project-id
+PROJECT_NAME="New project name"
 
+gcloud projects create ${PROJECT_ID} --name=${PROJECT_NAME}
+```
 
+If project already exist, you can get `project id` and define under environment variable PROJECT_ID:
+```bash
+export PROJECT_ID=$(gcloud config get-value project 2> /dev/null)
+```
+---
 
-https://partner.cloudskillsboost.google/focuses/11586?parent=catalog
-https://partner.cloudskillsboost.google/focuses/14875?parent=catalog
-https://cloud.google.com/architecture/jenkins-on-kubernetes-engine
+### Enable necessary API's in GCP
+
+Enable API
+```bash
+gcloud services enable \
+  serviceusage.googleapis.com \
+  servicemanagement.googleapis.com \
+  cloudresourcemanager.googleapis.com \
+  cloudbuild.googleapis.com \
+  artifactregistry.googleapis.com \
+  container.googleapis.com \
+  storage-api.googleapis.com \
+  storage.googleapis.com \
+  iam.googleapis.com \
+  --project ${PROJECT_ID}
+```
+
+### Create custom Service Account for Terraform
+
+Define Service Account name under environment variable SA_NAME:
+```bash
+export SA_NAME=sa-terraform
+```
+
+Create Service Account:
+```bash
+gcloud iam service-accounts create ${SA_NAME} \
+  --display-name "Terraform Admin Service Account"
+```
+
+### Grant Service Account(s) necessary roles
+
+Run script `scripts/gcp_sa_role_assignment.sh`:
+```bash
+bash scripts/gcp_sa_role_assignment.sh
+```
+
+OR grant permissions from [IAM](https://console.cloud.google.com/iam-admin/iam) page in the Google Cloud console.
+
+### Create and download JSON credentials (for Terraform Service Account only)
+
+Define Service Account keyfile name under environment variable SA_KEYFILE_NAME:
+```bash
+export SA_KEYFILE_NAME=credentials
+```
+
+Create and download Service Account Key:
+```bash
+gcloud iam service-accounts keys create ${SA_KEYFILE_NAME}.json \
+  --iam-account ${SA_NAME}@${PROJECT_ID}.iam.gserviceaccount.com
+```
+
+### Activate service account in CLI (optional)
+
+To work with GCP Project from local CLI unders Service account, activate it
+```bash
+gcloud auth activate-service-account \
+  ${SA_NAME}@${PROJECT_ID}.iam.gserviceaccount.com \
+  --key-file=./${SA_KEYFILE_NAME}.json \
+  --project=${PROJECT_ID}
+```
+
+### Connect GitHub repo to Cloud Build in GCP
+
+<b>NOTE:</b> To configure this, you should have enough permissions in GCP project.
+
+1. Go to [Cloud Build](https://console.cloud.google.com/cloud-build/triggers) page in the Google Cloud console.
+2. On the Cloud Build Triggers page, click "Connect Repository".
+3. Choose Github > Authenticate in it > select as Github account - `ambalashov` and repository `ambalashov/gcp-pca-bot`.
+4. Mark security agreement checkbox and press Connect.
+5. Finish this process without creating triggers.
+
+## TODO:
+Login 
+```bash
+cat keyoutput.json | docker login -u _json_key --password-stdin https://us-central1-docker.pkg.dev
+```
+
+Get the cluster credentials and configure kubectl:
+```bash
+gcloud container clusters get-credentials $(terraform output --raw cluster_name) --zone $(terraform output --raw cluster_location)
+```
