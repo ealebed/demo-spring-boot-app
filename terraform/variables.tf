@@ -34,6 +34,7 @@ variable "sa_cloud_build_roles" {
     "roles/logging.logWriter",
     "roles/artifactregistry.writer",
     "roles/container.developer",
+    "roles/clouddeploy.jobRunner",
     "roles/iam.serviceAccountUser"
   ]
 }
