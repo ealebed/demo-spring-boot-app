@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HelloController {
     @RequestMapping("/")
     public String index() {
-        return "Greetings to SoftServians from Spring Boot and Jib!";
+        return "Greetings to SoftServians from Spring Boot and JIB!";
     }
 }
