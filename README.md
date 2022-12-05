@@ -89,17 +89,6 @@ gcloud auth activate-service-account \
 
 1. Go to [Cloud Build](https://console.cloud.google.com/cloud-build/triggers) page in the Google Cloud console.
 2. On the Cloud Build Triggers page, click "Connect Repository".
-3. Choose Github > Authenticate in it > select as Github account - `ambalashov` and repository `ambalashov/gcp-pca-bot`.
-4. Mark security agreement checkbox and press Connect.
+3. Choose Github > Authenticate in it > select as Github account - `ORG` and repository `ORG/REPO`.
+4. Mark security agreement checkbox and press "Connect".
 5. Finish this process without creating triggers.
-
-## TODO:
-Login 
-```bash
-cat keyoutput.json | docker login -u _json_key --password-stdin https://us-central1-docker.pkg.dev
-```
-
-Get the cluster credentials and configure kubectl:
-```bash
-gcloud container clusters get-credentials $(terraform output --raw cluster_name) --zone $(terraform output --raw cluster_location)
-```
